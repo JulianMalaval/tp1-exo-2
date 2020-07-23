@@ -1,21 +1,42 @@
-let posX = 0
-let posY = 0
-input.onButtonPressed(Button.B, function () {
-    posX += 1
-    led.unplot(posX, posY)
-    posX = Math.min(4, posY)
+input.onButtonPressed(Button.A, function () {
+    if (x > 0) {
+        led.unplot(x, y)
+        x += -1
+        led.plot(x, y)
+    } else if (x == 0) {
+        led.unplot(x, y)
+        x = 4
+        y = 4
+        led.plot(x, y)
+    }
 })
+input.onButtonPressed(Button.B, function () {
+    if (x < 4) {
+        led.unplot(x, y)
+        x += 1
+        led.plot(x, y)
+    } else if (x == 4) {
+        led.unplot(x, y)
+        x = 0
+        y = 0
+        led.plot(x, y)
+    }
+})
+let y = 0
+let x = 0
+x = 0
+y = 0
 basic.forever(function () {
-    led.plot(posX, posY)
+    led.plot(x, y)
     basic.pause(1000)
-    led.unplot(posX, posY)
-    posY += 1
-    if (posY == 4) {
-        while (posY != 0) {
-            led.plot(posX, posY)
+    led.unplot(x, y)
+    y += 1
+    if (y == 4) {
+        while (y != 0) {
+            led.plot(x, y)
             basic.pause(1000)
-            led.unplot(0, posY)
-            posY += -1
+            led.unplot(x, y)
+            y += -1
         }
     }
 })
